@@ -1,0 +1,30 @@
+#login{
+	width: 40%;
+	margin : auto;
+	margin-top: 20%;
+	text-align: center;
+}
+
+#inputlogin{
+	margin : 20px 0;
+}
+
+.hide{
+	display: none;
+}
+
+#boxInfosChat{
+	margin: 300px 0 0 0;
+}
+
+#chatInfos{
+	height: 300px;
+}
+
+#linkQuit{
+	text-align: center;
+}
+
+#linkQuit a{
+	text-decoration: none;
+}
