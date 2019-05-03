@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 03 Mai 2019 à 12:09
+-- Généré le :  Ven 03 Mai 2019 à 15:26
 -- Version du serveur :  5.7.26-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.33-0ubuntu0.16.04.4
 
@@ -30,6 +30,14 @@ CREATE TABLE `Chat` (
   `Id` int(11) NOT NULL,
   `chatName` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Chat`
+--
+
+INSERT INTO `Chat` (`Id`, `chatName`) VALUES
+(1, 'chat'),
+(2, 'bonjour');
 
 -- --------------------------------------------------------
 
@@ -58,6 +66,24 @@ CREATE TABLE `User` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Contenu de la table `User`
+--
+
+INSERT INTO `User` (`Id`, `Pseudo`, `dateTime`) VALUES
+(1, 'toto', '2019-05-03 13:51:36');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_liste`
+--
+
+CREATE TABLE `user_liste` (
+  `Id_User` int(11) NOT NULL,
+  `Id_chat` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Index pour les tables exportées
 --
 
@@ -82,6 +108,13 @@ ALTER TABLE `User`
   ADD PRIMARY KEY (`Id`);
 
 --
+-- Index pour la table `user_liste`
+--
+ALTER TABLE `user_liste`
+  ADD KEY `Id_User` (`Id_User`),
+  ADD KEY `Id_chat` (`Id_chat`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -89,7 +122,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT pour la table `Chat`
 --
 ALTER TABLE `Chat`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `msg`
 --
@@ -99,7 +132,7 @@ ALTER TABLE `msg`
 -- AUTO_INCREMENT pour la table `User`
 --
 ALTER TABLE `User`
-  MODIFY `Id` int(6) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- Contraintes pour les tables exportées
 --
@@ -110,6 +143,13 @@ ALTER TABLE `User`
 ALTER TABLE `msg`
   ADD CONSTRAINT `msg_ibfk_1` FOREIGN KEY (`User_Id`) REFERENCES `User` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `msg_ibfk_2` FOREIGN KEY (`chat_Id`) REFERENCES `Chat` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `user_liste`
+--
+ALTER TABLE `user_liste`
+  ADD CONSTRAINT `user_liste_ibfk_1` FOREIGN KEY (`Id_chat`) REFERENCES `Chat` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_liste_ibfk_2` FOREIGN KEY (`Id_User`) REFERENCES `User` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
