@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Accueil</title>
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="theme.css">
@@ -19,8 +20,10 @@
 			</div>
 		</div>
 		<div class="col-4" id="boxInfosChat">
-			<h3>Discussion : nom de la discussion</h3>
+			<h3 id="groupe">Discussion : nom de la discussion</h3>
+			<div id="pseudo">
 			<p>Connecter en tant que nom user</p>
+			</div>
 			<div class="shadow p-3 mb-5 bg-white rounded" id="chatInfos">
 
 			</div>
@@ -30,7 +33,8 @@
 </div>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" href="bootstrap/js/bootstrap.js"></script>
-    <script src="JS/main.js"></script>
+	<script src="JS/main.js"></script>
+	<script src="JS/chatroom.js"></script>
 
 </body>
 </html>

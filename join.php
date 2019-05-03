@@ -1,7 +1,7 @@
 <?php
 include "connexion_bdd.php";
 
-$name = $_POST;
+$name = $_POST['chatroom'];
 
 $requete = $pdo->prepare("
     SELECT `Id` FROM `Chat` WHERE `chatName`= ? 
@@ -14,6 +14,7 @@ $infos = $requete->fetch(PDO::FETCH_ASSOC);
 
 
 echo json_encode($infos);
+
 
 
 ?>
