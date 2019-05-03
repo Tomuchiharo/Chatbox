@@ -59,6 +59,8 @@ function onclickCreate(){
         data : {chatroom : chatroom},
         success:function(data){
               console.log('ok');
+
+              $(location).attr('href',"pseudo.html?chatroom="+chatroom);
         }
     });
 
