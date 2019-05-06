@@ -23,7 +23,7 @@ $myPseudo = $requete->fetch(PDO::FETCH_ASSOC);
 
 //Recuperer les msg
 
-$requete = $pdo->prepare("SELECT msg.`Id`, `User_Id`, `Content`, msg.`dateTime`, `chat_Id`, Pseudo FROM `msg` INNER JOIN User ON msg.User_Id = User.Id WHERE `chat_Id`=? ORDER BY msg.`dateTime` DESC");
+$requete = $pdo->prepare("SELECT msg.`Id`, `User_Id`, `Content`, msg.`dateTime`, `chat_Id`, Pseudo FROM `msg` INNER JOIN User ON msg.User_Id = User.Id WHERE `chat_Id`=? ORDER BY msg.`dateTime`");
 
 $requete->execute([ $chatName['Id']]);
 

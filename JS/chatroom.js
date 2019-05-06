@@ -3,17 +3,24 @@ $(document).ready(function(){
 	 //$('#btnMsg').on('click',showMsg);
 
 	infoSession();
-	$('#btnMsg').on('click', chatMsg);
-	$('#btnMsg').on('click', insertMsg);
 
-	window.setInterval(showMsg(), 1000);
+	 $('#btnMsg').on('click', insertMsg);
+	 showMsg();
 	
 });
 
- var url = window.location.href; 
-			var myUrl = url.split("=");
-            var myPseudo = myUrl[1];
-            var myChatroom = myUrl[3];
+	window.setInterval(showMsg, 5000);
+
+	function scrollToBottom(){
+
+		var chat = $('#chatRoom');
+		chat.scrollTop = chat.scrollHeight;
+	}
+
+	 var url = window.location.href; 
+				var myUrl = url.split("=");
+	            var myPseudo = myUrl[1];
+	            var myChatroom = myUrl[3];
 
 	function infoSession(){
           
@@ -21,30 +28,10 @@ $(document).ready(function(){
 			$('#groupe').html(" Discussion : "+ myChatroom );
 	}
 
-
-	function chatMsg(){
-
-		 var msg = $("#inputMsg").val();
-
-		   $.ajax({
-		       url : 'show_msg.php',
-		       method : 'post',
-		       dataType: 'json',
-		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
-		       success:function(data){
-		            var tab = data[0]['dateTime'].split(" ");
-		            var day = tab[0];
-		        	var hour = tab[1];
-
-		             $('#chatRoom').prepend('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + msg + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + myPseudo + '</strong> le ' + day + ' à ' + hour + '</p></div>');
-
-		       }
-		   });
-		}
 	
 	function showMsg(){
 
-		console.log('ok');
+		$('#chatRoom').empty();
 
 		$.ajax({
 		       url : 'show_msg.php',
@@ -69,11 +56,13 @@ $(document).ready(function(){
 
 		         			 $('#chatRoom').append('<div class="text-right" id="boxMsg"><p class=" d-inline bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 		         		}
+
 		        	}
 		         }
 
 		       
 		   });
+	
 	}
 
 	function insertMsg(){
@@ -93,3 +82,6 @@ $(document).ready(function(){
 
 		     });
 	};
+
+	
+
