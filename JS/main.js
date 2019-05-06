@@ -50,7 +50,9 @@ function onclickPseudo(){
 
 function onclickCreate(){
 
-    var chatroom = $('#inputlogin').val();
+    var chat = $('#inputlogin').val();
+    var newchat = chat.replace(' ', '-');
+    var chatroom = newchat.toUpperCase();
 
     $.ajax({
         url : 'createChat.php',

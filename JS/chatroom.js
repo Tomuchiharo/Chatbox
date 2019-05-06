@@ -1,24 +1,95 @@
 $(document).ready(function(){
-	var url = window.location.href; 
-			var myUrl = url.split("=");
-            var myPseudo = myUrl[1];
-            console.log(myPseudo);
-			$('#pseudo').html("<p> Connecté en tant que"+ myPseudo+"</p>")
 
+	 //$('#btnMsg').on('click',showMsg);
+
+	infoSession();
+	$('#btnMsg').on('click', chatMsg);
+	$('#btnMsg').on('click', insertMsg);
+
+	window.setInterval(showMsg(), 1000);
+	
 });
 
+ var url = window.location.href; 
+			var myUrl = url.split("=");
+            var myPseudo = myUrl[1];
+            var myChatroom = myUrl[3];
 
-function chatMsg(){
-    var msg = $("#inputMsg").val();
+	function infoSession(){
+          
+			$('#pseudo').html("<p> Connecté en tant que <strong>"+ myPseudo+"</strong></p>")
+			$('#groupe').html(" Discussion : "+ myChatroom );
+	}
 
-    $.ajax({
-        url : 'chatMsg.php',
-        method : 'post',
-        dataType: 'json',
-        data : {msg : msg},
-        success:function(data){
-              console.log('ok');
 
-        }
-    });
-}
+	function chatMsg(){
+
+		 var msg = $("#inputMsg").val();
+
+		   $.ajax({
+		       url : 'show_msg.php',
+		       method : 'post',
+		       dataType: 'json',
+		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
+		       success:function(data){
+		            var tab = data[0]['dateTime'].split(" ");
+		            var day = tab[0];
+		        	var hour = tab[1];
+
+		             $('#chatRoom').prepend('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + msg + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + myPseudo + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+
+		       }
+		   });
+		}
+	
+	function showMsg(){
+
+		console.log('ok');
+
+		$.ajax({
+		       url : 'show_msg.php',
+		       method : 'post',
+		       dataType: 'json',
+		       data : { pseudo : myPseudo, chat : myChatroom},
+		       success:function(data){
+		             console.log(data);
+
+		             var i;
+		        for(i=0;i<data.length;i++){
+
+		        	var tab = data[i]['dateTime'].split(" ");
+		        	var day = tab[0];
+		        	var hour = tab[1];
+
+		        	if(data[i]['Pseudo'] == myPseudo){
+
+		             $('#chatRoom').append('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+
+		         		}else{
+
+		         			 $('#chatRoom').append('<div class="text-right" id="boxMsg"><p class=" d-inline bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+		         		}
+		        	}
+		         }
+
+		       
+		   });
+	}
+
+	function insertMsg(){
+
+			var msg = $("#inputMsg").val();
+
+		   $.ajax({
+		       url : 'chatMsg.php',
+		       method : 'post',
+		       dataType: 'json',
+		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
+		       success:function(data){
+		  		
+
+		       }
+
+
+		     });
+	};
