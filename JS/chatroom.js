@@ -11,11 +11,8 @@ $(document).ready(function(){
 
 	window.setInterval(showMsg, 5000);
 
-	function scrollToBottom(){
 
-		var chat = $('#chatRoom');
-		chat.scrollTop = chat.scrollHeight;
-	}
+	
 
 	 var url = window.location.href; 
 				var myUrl = url.split("=");
@@ -32,6 +29,9 @@ $(document).ready(function(){
 	function showMsg(){
 
 		$('#chatRoom').empty();
+		var scroll = $('#chatRoom').scrollTop();
+		var scroll2 = $('#chatRoom').scrollHeight();
+		console.log(scroll2);
 
 		$.ajax({
 		       url : 'show_msg.php',
