@@ -1,10 +1,12 @@
 $(document).ready(function(){
 
-	 //$('#btnMsg').on('click',showMsg);
-
 	infoSession();
-
 	 $('#btnMsg').on('click', insertMsg);
+
+	 $('#quit').on('click', function(){
+	 	$(location).attr('href',"login.html");
+	 });
+
 	 showMsg();
 	
 });
@@ -12,7 +14,14 @@ $(document).ready(function(){
 	window.setInterval(showMsg, 5000);
 
 
-	
+		var chat = $('#chatRoom');
+		var y = chat[0].scrollHeight;
+		var x = chat[0].scrollTop;
+		console.log(y);
+		console.log(x);
+		chat[0].scrollTop = chat[0].scrollHeight;
+		
+	}
 
 	 var url = window.location.href; 
 				var myUrl = url.split("=");
@@ -28,11 +37,6 @@ $(document).ready(function(){
 	
 	function showMsg(){
 
-		$('#chatRoom').empty();
-		var scroll = $('#chatRoom').scrollTop();
-		var scroll2 = $('#chatRoom').scrollHeight();
-		console.log(scroll2);
-
 		$.ajax({
 		       url : 'show_msg.php',
 		       method : 'post',
@@ -41,7 +45,9 @@ $(document).ready(function(){
 		       success:function(data){
 		             console.log(data);
 
+		             $('#chatRoom').html('<div id="mainBox">');
 		             var i;
+
 		        for(i=0;i<data.length;i++){
 
 		        	var tab = data[i]['dateTime'].split(" ");
@@ -50,18 +56,20 @@ $(document).ready(function(){
 
 		        	if(data[i]['Pseudo'] == myPseudo){
 
-		             $('#chatRoom').append('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+		             $('#mainBox').append('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 
 		         		}else{
 
-		         			 $('#chatRoom').append('<div class="text-right" id="boxMsg"><p class=" d-inline bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+		         			 $('#mainBox').append('<div class="text-right" id="boxMsg"><p class=" d-inline bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 		         		}
+
+		         		scrollToBottom();
 
 		        	}
 		         }
-
 		       
 		   });
+
 	
 	}
 
@@ -75,7 +83,7 @@ $(document).ready(function(){
 		       dataType: 'json',
 		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
 		       success:function(data){
-		  		
+		  		console.log('success insertMsg')
 
 		       }
 
