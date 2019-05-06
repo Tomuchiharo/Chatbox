@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	 //$('#btnMsg').on('click',showMsg);
+	 showMsg();
 	infoSession();
 	$('#btnMsg').on('click', chatMsg);
 	
@@ -18,7 +20,8 @@ $(document).ready(function(){
 
 
 	function chatMsg(){
-		   var msg = $("#inputMsg").val();
+
+		 var msg = $("#inputMsg").val();
 
 		   $.ajax({
 		       url : 'chatMsg.php',
@@ -26,8 +29,37 @@ $(document).ready(function(){
 		       dataType: 'json',
 		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
 		       success:function(data){
-		             console.log(data);
+		            console.log(data);
+		            showMsg();
 
 		       }
 		   });
 		}
+
+	function showMsg(){
+
+		$.ajax({
+		       url : 'show_msg.php',
+		       method : 'post',
+		       dataType: 'json',
+		       data : { pseudo : myPseudo, chat : myChatroom},
+		       success:function(data){
+		             console.log(data);
+
+		             var i;
+		        for(i=0;i<data.length;i++){
+
+		        	if(data[i]['Pseudo'] == myPseudo){
+
+		             $('#chatRoom').append('<p class="bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p>');
+
+		         		}else{
+
+		         			 $('#chatRoom').append('<p class="bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p>');
+		         		}
+		        	}
+		         }
+
+		       
+		   });
+	}	
