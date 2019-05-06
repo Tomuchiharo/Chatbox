@@ -7,3 +7,18 @@ $(document).ready(function(){
 
 });
 
+
+function chatMsg(){
+    var msg = $("#inputMsg").val();
+
+    $.ajax({
+        url : 'chatMsg.php',
+        method : 'post',
+        dataType: 'json',
+        data : {msg : msg},
+        success:function(data){
+              console.log('ok');
+
+        }
+    });
+}
