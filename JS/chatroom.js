@@ -1,9 +1,12 @@
 $(document).ready(function(){
 
 	 //$('#btnMsg').on('click',showMsg);
-	 showMsg();
+
 	infoSession();
 	$('#btnMsg').on('click', chatMsg);
+	$('#btnMsg').on('click', insertMsg);
+
+	window.setInterval(showMsg(), 1000);
 	
 });
 
@@ -24,19 +27,24 @@ $(document).ready(function(){
 		 var msg = $("#inputMsg").val();
 
 		   $.ajax({
-		       url : 'chatMsg.php',
+		       url : 'show_msg.php',
 		       method : 'post',
 		       dataType: 'json',
 		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
 		       success:function(data){
-		            console.log(data);
-		            showMsg();
+		            var tab = data[0]['dateTime'].split(" ");
+		            var day = tab[0];
+		        	var hour = tab[1];
+
+		             $('#chatRoom').prepend('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + msg + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + myPseudo + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 
 		       }
 		   });
 		}
-
+	
 	function showMsg(){
+
+		console.log('ok');
 
 		$.ajax({
 		       url : 'show_msg.php',
@@ -49,17 +57,38 @@ $(document).ready(function(){
 		             var i;
 		        for(i=0;i<data.length;i++){
 
+		        	var tab = data[i]['dateTime'].split(" ");
+		        	var day = tab[0];
+		        	var hour = tab[1];
+
 		        	if(data[i]['Pseudo'] == myPseudo){
 
-		             $('#chatRoom').append('<p class="bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p>');
+		             $('#chatRoom').append('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 
 		         		}else{
 
-		         			 $('#chatRoom').append('<p class="bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p>');
+		         			 $('#chatRoom').append('<div class="text-right" id="boxMsg"><p class=" d-inline bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 		         		}
 		        	}
 		         }
 
 		       
 		   });
-	}	
+	}
+
+	function insertMsg(){
+
+			var msg = $("#inputMsg").val();
+
+		   $.ajax({
+		       url : 'chatMsg.php',
+		       method : 'post',
+		       dataType: 'json',
+		       data : {msg : msg, pseudo : myPseudo, chat : myChatroom},
+		       success:function(data){
+		  		
+
+		       }
+
+		     });
+	};

@@ -32,3 +32,16 @@
 #btnMsg{
 	margin-top: 10px;
 }
+
+#boxMsg{
+	margin: 40px 0;
+}
+
+#infoMsg{
+	margin: 10px 0;
+	font-size: 0.8em;
+}
+
+#chatRoom{
+	overflow-y:scroll;
+}
