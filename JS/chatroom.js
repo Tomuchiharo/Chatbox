@@ -102,6 +102,11 @@ var color1 = getColor();
 	};
 
 	function chatName(){
+
+		var url = window.location.href; 
+		var myUrl = url.split("=");
+		var myName = myUrl[1];
+
 		$.ajax({
 			url : 'chatName.php',
 			method : 'post',
@@ -110,7 +115,7 @@ var color1 = getColor();
 
 			   var i;
 			   for(i=0; i<data.length;i++){
-				   $('#chatName').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=jiji=chatroom='+ data[i].chatName +'"  >' +data[i].chatName+ '</a></div>')
+				   $('#chatName').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=' + myName + '=chatroom='+ data[i].chatName +'"  >' +data[i].chatName+ '</a></div>')
 			   }
 
 			}
