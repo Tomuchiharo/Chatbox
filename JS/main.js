@@ -68,6 +68,7 @@ if(data.result=="false"){
 }
 
 function getInfos(){
+
 	var pseudo;
 	var url = window.location.href; 
 	var myUrl = url.split("=");
@@ -80,7 +81,7 @@ function getInfos(){
 		success:function(data){
 
  	pseudo = data['Pseudo'];
-	console.log(data);
+	
 	onclickCreate(pseudo);
 	
 		}
@@ -139,12 +140,13 @@ function onclickjoin(pseudo){
 
 }
 
+
 function onclickCreate(pseudo){
 
-	console.log(pseudo);
     var chat = $('#inputlogin').val();
     var newchat = chat.replace(' ', '-');
-    var chatroom = newchat.toUpperCase();
+	var chatroom = newchat.toUpperCase();
+	
 
     $.ajax({
         url : 'createChat.php',
@@ -152,12 +154,12 @@ function onclickCreate(pseudo){
         dataType: 'json',
         data : {chatroom : chatroom},
         success:function(data){
-              console.log('ok');
+			
+			$(location).attr('href',"chat.html?pseudo="+pseudo+"=chatroom="+chatroom);
 
-			  $(location).attr('href',"chat.html?pseudo="+pseudo+"=chatroom="+chatroom);
+			
         }
-    });
-
+	});
 
 }
 

@@ -2,13 +2,13 @@ $(document).ready(function(){
 
 	infoSession();
 	 $('#btnMsg').on('click', insertMsg);
-
+	
 	 $('#quit').on('click', function(){
 	 	$(location).attr('href',"login.html");
 	 });
 
-	 showMsg();
-	 chatName();
+	 showMsg();	 
+	 chatList();
 	
 });
 
@@ -97,28 +97,38 @@ var color1 = getColor();
 
 		       }
 
-
 		     });
 	};
 
-	function chatName(){
+	function chatList(){
 
 		var url = window.location.href; 
 		var myUrl = url.split("=");
-		var myName = myUrl[1];
+		var pseudo = myUrl[1];
+		var chatName = myUrl[3];
+	console.log('ok')
 
 		$.ajax({
 			url : 'chatName.php',
 			method : 'post',
 			dataType: 'json',
+			data : {chatName : chatName, pseudo:pseudo},
 			success:function(data){
+	
+				var tab = data;
+		
+			
+			var i;
+			for(i=0; i<tab.length;i++){
+			 console.log(tab[i].chatName)
+				$('#chatName').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=' + pseudo + '=chatroom='+ tab[i].chatName +'"  >' +tab[i].chatName+ '</a></div>')
+			}
 
-			   var i;
-			   for(i=0; i<data.length;i++){
-				   $('#chatName').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=' + myName + '=chatroom='+ data[i].chatName +'"  >' +data[i].chatName+ '</a></div>')
-			   }
 
 			}
 		});
+	
 	}
+	
+	
 

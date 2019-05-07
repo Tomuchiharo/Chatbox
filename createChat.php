@@ -9,7 +9,6 @@ $requete = $pdo->prepare("
 
 $requete->execute([$name]);
 
+
 echo json_encode($name);
-
-
 ?>
