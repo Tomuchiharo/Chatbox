@@ -8,20 +8,22 @@ $(document).ready(function(){
 	 });
 
 	 showMsg();
+	 chatName();
 	
 });
 
-	window.setInterval(showMsg, 5000);
+	window.setInterval(showMsg, 2000);
 
+	function scrollToBottom(){
 
-		var chat = $('#chatRoom');
-		var y = chat[0].scrollHeight;
-		var x = chat[0].scrollTop;
-		console.log(y);
-		console.log(x);
-		chat[0].scrollTop = chat[0].scrollHeight;
-		
-	}
+        var chat = $('#chatRoom');
+        var y = chat[0].scrollHeight;
+        var x = chat[0].scrollTop;
+        console.log(y);
+        console.log(x);
+        chat[0].scrollTop = chat[0].scrollHeight;
+        
+    }
 
 	 var url = window.location.href; 
 				var myUrl = url.split("=");
@@ -43,7 +45,6 @@ $(document).ready(function(){
 		       dataType: 'json',
 		       data : { pseudo : myPseudo, chat : myChatroom},
 		       success:function(data){
-		             console.log(data);
 
 		             $('#chatRoom').html('<div id="mainBox">');
 		             var i;
@@ -91,5 +92,19 @@ $(document).ready(function(){
 		     });
 	};
 
-	
+	function chatName(){
+		$.ajax({
+			url : 'chatName.php',
+			method : 'post',
+			dataType: 'json',
+			success:function(data){
+
+			   var i;
+			   for(i=0; i<data.length;i++){
+				   $('#chatName').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=jiji=chatroom='+ data[i].chatName +'"  >' +data[i].chatName+ '</a></div>')
+			   }
+
+			}
+		});
+	}
 

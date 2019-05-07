@@ -14,7 +14,7 @@
 }
 
 #boxInfosChat{
-	margin: 300px 0 0 0;
+	margin: 50px 0 0 0;
 }
 
 #chatInfos{
@@ -44,4 +44,13 @@
 
 #chatRoom{
 	overflow: auto;
+}
+
+#chatName{
+	overflow:auto;
+	height:400px;
+}
+
+#chatNameBox{
+	margin: 50px 0 0;
 }
