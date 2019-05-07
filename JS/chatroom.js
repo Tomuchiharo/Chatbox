@@ -12,10 +12,11 @@ $(document).ready(function(){
 	
 });
 
+scrollToBottom();
 var color = getColor();
 var color1 = getColor();
 
-	window.setInterval(showMsg, 2000);
+	//window.setInterval(showMsg, 2000);
 
 	function getColor(){
 		var r = Math.floor(Math.random()*256);          // Random between 0-255
@@ -73,8 +74,6 @@ var color1 = getColor();
 		         			 $('#mainBox').append('<div class="text-right" id="boxMsg"><p class=" d-inline  shadow-none p-3 mb-5 rounded" style=" background-color:' + color1 + '">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 		         		}
 
-		         		scrollToBottom();
-
 		        	}
 		         }
 		       
@@ -114,14 +113,16 @@ var color1 = getColor();
 			dataType: 'json',
 			data : {chatName : chatName, pseudo:pseudo},
 			success:function(data){
-	
-				var tab = data;
 		
-			
-			var i;
+				$('#chatName').html('<div id="newBox">');
+
+				console.log(data);
+				var tab = data;
+				var i;
+
 			for(i=0; i<tab.length;i++){
-			 console.log(tab[i].chatName)
-				$('#chatName').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=' + pseudo + '=chatroom='+ tab[i].chatName +'"  >' +tab[i].chatName+ '</a></div>')
+			
+				$('#newBox').append('<div id="chat"><a href="http://localhost/Chatbox/chat.html?pseudo=' + pseudo + '=chatroom='+ tab[i].chatName +'"  >' +tab[i].chatName+ '</a></div>')
 			}
 
 
