@@ -12,15 +12,24 @@ $(document).ready(function(){
 	
 });
 
+var color = getColor();
+var color1 = getColor();
+
 	window.setInterval(showMsg, 2000);
+
+	function getColor(){
+		var r = Math.floor(Math.random()*256);          // Random between 0-255
+		var g = Math.floor(Math.random()*256);          // Random between 0-255
+		var b = Math.floor(Math.random()*256);          // Random between 0-255
+		var rgb = 'rgb(' + r + ',' + g + ',' + b + ')'; // Collect all to a string
+		return rgb;
+	}
 
 	function scrollToBottom(){
 
         var chat = $('#chatRoom');
         var y = chat[0].scrollHeight;
         var x = chat[0].scrollTop;
-        console.log(y);
-        console.log(x);
         chat[0].scrollTop = chat[0].scrollHeight;
         
     }
@@ -57,11 +66,11 @@ $(document).ready(function(){
 
 		        	if(data[i]['Pseudo'] == myPseudo){
 
-		             $('#mainBox').append('<div id="boxMsg"><p class="d-inline bg-info shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+		             $('#mainBox').append('<div id="boxMsg"><p class="d-inline shadow-none p-3 mb-5 rounded" style=" background-color:' + color + '" >' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 
 		         		}else{
 
-		         			 $('#mainBox').append('<div class="text-right" id="boxMsg"><p class=" d-inline bg-secondary shadow-none p-3 mb-5 rounded">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
+		         			 $('#mainBox').append('<div class="text-right" id="boxMsg"><p class=" d-inline  shadow-none p-3 mb-5 rounded" style=" background-color:' + color1 + '">' + data[i]['Content'] + '</p><p id="infoMsg" class = "text-secondary "> Envoyé par <strong>' + data[i]['Pseudo'] + '</strong> le ' + day + ' à ' + hour + '</p></div>');
 		         		}
 
 		         		scrollToBottom();

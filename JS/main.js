@@ -115,8 +115,9 @@ function onclickjoin(pseudo){
 
 	console.log(pseudo);
 
-	
-	var chatroom = $('#inputlogin').val();
+	var chat = $('#inputlogin').val();
+    var newchat = chat.replace(' ', '-');
+    var chatroom = newchat.toUpperCase();
 
 	$.ajax({
 		url : 'join.php', 
