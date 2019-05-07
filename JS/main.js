@@ -139,13 +139,12 @@ function onclickjoin(pseudo){
 }
 
 function onclickCreate(pseudo){
-	// var pseudo = getInfos();
+
 	console.log(pseudo);
     var chat = $('#inputlogin').val();
     var newchat = chat.replace(' ', '-');
     var chatroom = newchat.toUpperCase();
-//var infos = getInfos();
-//console.log(infos);
+
     $.ajax({
         url : 'createChat.php',
         method : 'post',
